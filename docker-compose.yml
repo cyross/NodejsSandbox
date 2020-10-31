@@ -1,0 +1,37 @@
+version: '3'
+services:
+    app:
+        image: node:12
+        volumes:
+            - ./docker/app/src:/src
+        working_dir: /src
+        command: npm start
+        environment: 
+            TZ: Asia/Tokyo
+            DEBUG: app:*
+        ports:
+            - 8080:80
+            - 8000:8000
+            - 3000:3000
+        networks: 
+            - default
+        depends_on:
+            - db
+        tty: true
+    db:
+        image: mysql:8
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: test
+            MYSQL_PASSWORD: test
+            TZ: Asia/Tokyo
+        volumes:
+            - ./docker/db/init:/docker-entrypoint-initdb.d
+            - ./docker/db/data:/var/lib/mysql
+            - ./docker/db/conf/:/etc/mysql/conf.d
+            - ./docker/db/work:/work
+        ports: 
+            - "3306:3306"
+        networks:
+            - default
+        tty: true

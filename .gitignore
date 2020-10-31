@@ -1,0 +1,4 @@
+docker/db/data/*
+docker/db/work/*
+docker/app/src/node_modules
+docker/app/src/package-lock.json

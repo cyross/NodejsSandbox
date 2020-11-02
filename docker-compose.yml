@@ -5,7 +5,6 @@ services:
         volumes:
             - ./docker/app/src:/src
         working_dir: /src
-        command: npm start
         environment: 
             TZ: Asia/Tokyo
             DEBUG: app:*
